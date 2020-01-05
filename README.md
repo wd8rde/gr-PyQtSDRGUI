@@ -1,5 +1,7 @@
 # GNU Radio Python Qt SDR GUI block
 
+This is a **Work in Progress**. Not everything works yet ... Jan, 5, 2020
+
 Based on .ui file from [OpenExpertSDR](https://github.com/florintanasa/OpenExpertSDR)
 
 This project creates a QT GNU Radio block which may be loaded into GNU Radio Companion. It will be located under [Core]/WD8RDE/QT/PyQt SDR GUI.
