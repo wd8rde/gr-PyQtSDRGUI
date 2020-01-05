@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<block>
+  <name>PyQt SDR GUI</name>
+  <key>PyQtSDRGUI</key>
+  <category>[Core]/WD8RDE/QT</category>
+  <import>from PyQt5 import Qt</import>
+  <import>from gnuradio import qtgui</import>
+  <import>import gr_PyQtSDRGUI as PyQtSDRGUI</import>
+  <make>#set $win = 'self.%s'%($id)
+PyQtSDRGUI.PyQtSDRGUI(parent=None,
+                      itu_region=$itu_region,
+                      band_id=$band_id,
+                      bandwidth_low=$bandwidth_low,
+                      bandwidth_high=$bandwidth_high,
+                      volume=$volume,
+                      vfo_freq=$vfo_freq,
+                      lo_freq=$lo_freq,
+                      sample_rate=$sample_rate)
+$(gui_hint() % $win)
+
+#if $bandchangevar() is not None
+def $(id)_band_callback(band):
+	self.set_$(bandchangevar)(band)
+
+self.$(id).on_band.connect( $(id)_band_callback)
+#end if
+
+#if $bandwidth_high_changevar() is not None
+def $(id)_bandwidth_high_callback(bandwidth):
+	self.set_$(bandwidth_high_changevar)(bandwidth)
+
+self.$(id).on_bandwidth_high.connect($(id)_bandwidth_high_callback)
+#end if
+
+#if $bandwidth_low_changevar() is not None
+def $(id)_bandwidth_low_callback(bandwidth):
+	self.set_$(bandwidth_low_changevar)(bandwidth)
+
+self.$(id).on_bandwidth_low.connect($(id)_bandwidth_low_callback)
+#end if
+
+#if $vfochangevar() is not None
+def $(id)_vfo_callback(freq):
+	self.set_$(vfochangevar)(freq)
+
+self.$(id).on_vfo_frequency.connect( $(id)_vfo_callback)
+#end if
+
+#if $lochangevar() is not None
+def $(id)_lo_callback(freq):
+	self.set_$(lochangevar)(freq)
+
+self.$(id).on_lo_frequency.connect( $(id)_lo_callback)
+#end if
+
+#if $modulationchangevar() is not None
+def $(id)_modulation_callback(modulation):
+	self.set_$(modulationchangevar)(modulation)
+
+self.$(id).on_modulation_mode.connect($(id)_modulation_callback)
+#end if
+
+#if $volumechangevar() is not None
+def $(id)_volume_callback(volume):
+	self.set_$(volumechangevar)(volume)
+
+self.$(id).on_volume_changed.connect($(id)_volume_callback)
+#end if
+
+#if $rfattenchangevar() is not None
+def $(id)_rfatten_callback(onoff):
+	self.set_$(rfattenchangevar)(onoff)
+
+self.$(id).on_rfatten_toggled.connect($(id)_rfatten_callback)
+#end if
+
+#if $rfpreampchangevar() is not None
+def $(id)_rfpreamp_callback(onoff):
+	self.set_$(rfpreampchangevar)(onoff)
+
+self.$(id).on_rfpreamp_toggled.connect($(id)_rfpreamp_callback)
+#end if
+
+#if $audiopreampchangevar() is not None
+def $(id)_audiopreamp_callback(onoff):
+	self.set_$(audiopreampchangevar)(onoff)
+
+self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
+#end if
+
+  </make>
+  <callback>set_itu_region($itu_region)</callback>
+  <callback>set_band_id($band_id)</callback>
+  <callback>set_bandwidth_low($bandwidth_low)</callback>
+  <callback>set_bandwidth_high($bandwidth_high)</callback>
+  <callback>set_volume($volume)</callback>
+  <callback>set_vfo_freq($vfo_freq)</callback>
+  <callback>set_lo_freq($lo_freq)</callback>
+  <callback>set_sample_rate($sample_rate)</callback>
+  <param>
+      <name>GUI Hint</name>
+      <key>gui_hint</key>
+      <value></value>
+      <type>gui_hint</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>ITU Region</name>
+      <key>itu_region</key>
+      <value>'itu-region2'</value>
+      <type>string</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>Band</name>
+      <key>band_id</key>
+      <value>1</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>Bandwidth Low Cutoff</name>
+      <key>bandwidth_low</key>
+      <value>200</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>Bandwidth High Cutoff</name>
+      <key>bandwidth_high</key>
+      <value>2700</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>Volume</name>
+      <key>volume</key>
+      <value>5</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>VFO Frequency</name>
+      <key>vfo_freq</key>
+      <value>7001000</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>LO Frequency</name>
+      <key>lo_freq</key>
+      <value>7000000</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>Sample Rate</name>
+      <key>sample_rate</key>
+      <value>44100</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+    <name>Band Changed variable</name>
+    <key>bandchangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Bandwidth High Changed variable</name>
+    <key>bandwidth_high_changevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Bandwidth Low Changed variable</name>
+    <key>bandwidth_low_changevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>VFO Frequency Changed variable</name>
+    <key>vfochangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>LO Frequency Changed variable</name>
+    <key>lochangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Modulation Mode Changed variable</name>
+    <key>modulationchangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Volume Changed variable</name>
+    <key>volumechangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>RF Attenuator Changed variable</name>
+    <key>rfattenchangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>RF Preamp Changed variable</name>
+    <key>rfpreampchangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+  <param>
+    <name>Audio Preamp Changed variable</name>
+    <key>audiopreampchangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+  </param>
+</block>
