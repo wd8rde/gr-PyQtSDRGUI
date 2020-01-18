@@ -45,6 +45,9 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
     on_lo_frequency = Qt.pyqtSignal(int)
     on_modulation_mode = Qt.pyqtSignal(int)
     on_volume_changed = Qt.pyqtSignal(int)
+    on_rf_gain_changed = Qt.pyqtSignal(int)
+    on_drive_changed = Qt.pyqtSignal(int)
+    on_mic_changed = Qt.pyqtSignal(int)
     on_rfatten_toggled = Qt.pyqtSignal(bool)
     on_rfpreamp_toggled = Qt.pyqtSignal(bool)
     on_audiopreamp_toggled = Qt.pyqtSignal(bool)
@@ -56,9 +59,13 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
                  bandwidth_low=200,
                  bandwidth_high=2700,
                  volume=25,
+                 rf_gain=100,
+                 drive=0,
+                 mic=60,
                  vfo_freq=7001000,
                  lo_freq=7000000,
-                 sample_rate=44100):
+                 sample_rate=44100,
+                 modulation_mode=3):
 
         Qt.QWidget.__init__(self, parent)
         OpenSdrGuiLogic.__init__(self,
@@ -66,29 +73,48 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
                                  band_id=band_id,
                                  bandwidth_low=bandwidth_low,
                                  bandwidth_high=bandwidth_high,
+                                 volume=volume,
+                                 rf_gain=rf_gain,
+                                 drive=drive,
+                                 mic=mic,
                                  vfo_freq=vfo_freq,
                                  lo_freq=lo_freq,
-                                 sample_rate=sample_rate)
+                                 sample_rate=sample_rate,
+                                 modulation_mode=modulation_mode)
 
         OpenSdrGuiLogic.setupUi(self,self)
 
-    def set_itu_region(self, itu_region):
-        pass
+    def set_itu_region_cb(self, itu_region):
+        self.itu_region = itu_region; #defined in OpenSdrGuiLogic.py
 
-    def set_band_id(self, band_id):
-        pass
+    def set_band_id_cb(self, band_id):
+        self.set_band(band_id) #defined in OpenSdrGuiLogic.py
 
-    def set_bandwidth_low(self, bandwidth_low):
-        pass
+    def set_bandwidth_low_cb(self, bandwidth_low):
+        self.current_bandwidth_low = bandwidth_low #defined in OpenSdrGuiLogic.py
 
-    def set_bandwidth_high(self, bandwidth_high):
-        pass
+    def set_bandwidth_high_cb(self, bandwidth_high):
+        self.set_bandwidth_high(bandwidth_high) #defined in OpenSdrGuiLogic.py
 
-    def set_volume(self, volume):
-        pass
+    def set_volume_cb(self, volume):
+        self.set_volume(volume) #defined in OpenSdrGuiLogic.py
 
-    def set_sample_rate(self, sample_rate):
+    def set_rf_gain_cb(self, rf_gain):
+        self.set_rf_gain(rf_gain) #defined in OpenSdrGuiLogic.py
+
+    def set_drive_cb(self, rf_gain):
+        self.set_drive(drive) #defined in OpenSdrGuiLogic.py
+
+    def set_mic_cb(self, rf_gain):
+        self.set_mic(mic) #defined in OpenSdrGuiLogic.py
+
+    def set_sample_rate_cb(self, sample_rate):
         self.sample_rate = sample_rate #defined in OpenSdrGuiLogic.py
+
+    def set_modulation_mode_cb(self, mode):
+        print("Setting Modulation mode to ", mode)
+        if(mode in self.modulation_idx2mode_map):
+            self.set_modulation_mode(self.modulation_idx2mode_map[mode])
 
     def on_band_event(self, band_id):
         print("PyQtSdrGui 'on_band' %d"%band_id)
@@ -111,9 +137,8 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
         self.on_lo_frequency.emit(int(freq))
 
     def on_modulation_mode_event(self,mode):
-        mode_map = {'AM':0,'SAM':1,'DSB':2,'LSB':3,'USB':4,'CWL':5,'CWU':6,'FMN':7,'SPEC':8,'DIGL':9,'DIGL':10,'DIGU':11,'DRM':12 }
-        if(mode in mode_map):
-            mode_idx = mode_map[mode]
+        if(mode in self.modulation_mode2idx_map):
+            mode_idx = self.modulation_mode2idx_map[mode]
             print("PyQtSdrGui 'on_modulation_mode_event' %s, emitting %d"%(str(mode),int(mode_idx)))
             self.on_modulation_mode.emit(int(mode_idx))
         else:
@@ -122,7 +147,18 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
     def on_volume_changed_event(self,percent):
         print('on_volume_changed',percent)
         self.on_volume_changed.emit(int(percent))
-        pass
+
+    def on_rf_gain_changed_event(self,percent):
+        print('on_rf_gain_changed',percent)
+        self.on_rf_gain_changed.emit(int(percent))
+
+    def on_drive_changed_event(self,percent):
+        print('on_drive_changed',percent)
+        self.on_drive_changed.emit(int(percent))
+
+    def on_mic_changed_event(self,percent):
+        print('on_mic_changed',percent)
+        self.on_mic_changed.emit(int(percent))
 
     def on_rfatten_toggled_event(self, toggled):
         print('on_rfatten_toggled',toggled)

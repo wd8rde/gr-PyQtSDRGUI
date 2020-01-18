@@ -9,9 +9,17 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
                  bandwidth_low=200,
                  bandwidth_high=2700,
                  volume=25,
+                 rf_gain=100,
+                 drive=0,
+                 mic=60,
                  vfo_freq=7001000,
                  lo_freq=7000000,
-                 sample_rate=44100):
+                 sample_rate=44100,
+                 modulation_mode=3):
+
+        #Modulation Mode
+        self.modulation_mode2idx_map = {'AM':0,'SAM':1,'DSB':2,'LSB':3,'USB':4,'CWL':5,'CWU':6,'FMN':7,'SPEC':8,'DIGL':9,'DIGU':10,'DRM':11 }
+        self.modulation_idx2mode_map = {0:'AM',1:'SAM',2:'DSB',3:'LSB',4:'USB',5:'CWL',6:'CWU',7:'FMN',8:'SPEC',9:'DIGL',10:'DIGU',11:'DRM' }
 
         Ui_OpenGRSDR.__init__(self)
         self.current_band = band_id
@@ -68,7 +76,10 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
         self.current_bandwidth_high = bandwidth_high
         self.current_bandwidth_low = bandwidth_low
         self.current_volume = volume
-        self.modulation_mode = 'AM'
+        self.current_rf_gain = rf_gain
+        self.current_drive = drive
+        self.current_mic = mic
+        self.modulation_mode = self.modulation_idx2mode_map[modulation_mode]
         self.sample_rate = sample_rate
 
     def setupUi(self, object):
@@ -147,7 +158,20 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
         self.pbF8.clicked.connect(lambda: self._on_bandwidth_high(8))
         self.set_bandwidth_high(self.current_bandwidth_high)
 
-        #Mode
+        #Modulation Mode
+        self.modulation_mode_objs = {'AM'  :self.pbAM,
+                                     'SAM' :self.pbSAM,
+                                     'DSB' :self.pbDSB,
+                                     'LSB' :self.pbLSB,
+                                     'USB' :self.pbUSB,
+                                     'CWL' :self.pbCWL,
+                                     'CWU' :self.pbCWU,
+                                     'FMN' :self.pbFMN,
+                                     'SPEC':self.pbSPEC,
+                                     'DIGL':self.pbDIGL,
+                                     'DIGU':self.pbDIGU,
+                                     'DRM' :self.pbDRM }
+
         self.pbAM.clicked.connect(lambda: self._on_modulation_mode('AM'))
         self.pbSAM.clicked.connect(lambda: self._on_modulation_mode('SAM'))
         self.pbDSB.clicked.connect(lambda: self._on_modulation_mode('DSB'))
@@ -160,10 +184,23 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
         self.pbDIGL.clicked.connect(lambda: self._on_modulation_mode('DIGL'))
         self.pbDIGU.clicked.connect(lambda: self._on_modulation_mode('DIGU'))
         self.pbDRM.clicked.connect(lambda: self._on_modulation_mode('DRM'))
+        self.set_modulation_mode(self.modulation_mode)
 
         #Volume
         self.slVol.valueChanged.connect(lambda i: self._on_volume_changed(i))
         self.set_volume(self.current_volume)
+
+        #RF Gain
+        self.slAgc.valueChanged.connect(lambda i: self._on_rf_gain_changed(i))
+        self.set_rf_gain(self.current_rf_gain)
+
+        #Drive Gain
+        self.slDrive.valueChanged.connect(lambda i: self._on_drive_changed(i))
+        self.set_drive(self.current_drive)
+
+        #Mic Gain
+        self.slMic.valueChanged.connect(lambda i: self._on_mic_changed(i))
+        self.set_mic(self.current_mic)
 
         #RF Attenuator
         self.pbAtten.toggled.connect(lambda i: self._on_rfatten_toggled(i))
@@ -293,7 +330,12 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
 
     def on_bandwidth_low_event(self,bandwidth):
         print("Bandwidth Low changed to %d"%(int(bandwidth)))
-        pass
+
+    def set_modulation_mode(self, mode):
+        print("OpenSdrGuiLogic Setting Modulation mode to ", mode)
+        if(mode in self.modulation_mode_objs):
+            self.modulation_mode_objs[mode].setChecked(True)
+            self._on_modulation_mode(mode)
 
     def _on_modulation_mode(self,mode):
         self.modulation_mode = mode
@@ -319,7 +361,57 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
 
     def on_volume_changed_event(self,percent):
         print('on_volume_changed',percent)
-        pass
+
+    def set_rf_gain(self,percent):
+        percent=int(percent)
+        if(100 < percent):
+            percent=100
+        elif(0 > percent):
+            percent=0
+
+        self.slAgc.setValue(percent)
+        self.current_rf_gain = percent
+        self._on_rf_gain_changed(percent)
+
+    def _on_rf_gain_changed(self, percent):
+        self.on_rf_gain_changed_event(percent)
+
+    def on_rf_gain_changed_event(self,percent):
+        print('on_rf_gain_changed',percent)
+
+    def set_drive(self,percent):
+        percent=int(percent)
+        if(100 < percent):
+            percent=100
+        elif(0 > percent):
+            percent=0
+
+        self.slDrive.setValue(percent)
+        self.current_drive = percent
+        self._on_drive_changed(percent)
+
+    def _on_drive_changed(self, percent):
+        self.on_drive_changed_event(percent)
+
+    def on_drive_changed_event(self,percent):
+        print('on_mic_changed',percent)
+
+    def set_mic(self,percent):
+        percent=int(percent)
+        if(100 < percent):
+            percent=100
+        elif(0 > percent):
+            percent=0
+
+        self.slMic.setValue(percent)
+        self.current_mic = percent
+        self._on_mic_changed(percent)
+
+    def _on_mic_changed(self, percent):
+        self.on_mic_changed_event(percent)
+
+    def on_mic_changed_event(self,percent):
+        print('on_mic_changed',percent)
 
     def _on_rfatten_toggled(self, toggled):
         self.on_rfatten_toggled_event(toggled)

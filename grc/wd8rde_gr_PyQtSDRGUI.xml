@@ -13,9 +13,13 @@ PyQtSDRGUI.PyQtSDRGUI(parent=None,
                       bandwidth_low=$bandwidth_low,
                       bandwidth_high=$bandwidth_high,
                       volume=$volume,
+                      rf_gain=$rf_gain,
+                      drive=$drive,
+                      mic=$mic,
                       vfo_freq=$vfo_freq,
                       lo_freq=$lo_freq,
-                      sample_rate=$sample_rate)
+                      sample_rate=$sample_rate,
+                      modulation_mode=$modulation_mode)
 $(gui_hint() % $win)
 
 #if $bandchangevar() is not None
@@ -67,6 +71,27 @@ def $(id)_volume_callback(volume):
 self.$(id).on_volume_changed.connect($(id)_volume_callback)
 #end if
 
+#if $rf_gain_changevar() is not None
+def $(id)_rf_gain_callback(percent):
+	self.set_$(rf_gain_changevar)(percent)
+
+self.$(id).on_rf_gain_changed.connect($(id)_rf_gain_callback)
+#end if
+
+#if $drive_changevar() is not None
+def $(id)_drive_callback(percent):
+	self.set_$(drive_changevar)(percent)
+
+self.$(id).on_drive_changed.connect($(id)_drive_callback)
+#end if
+
+#if $mic_changevar() is not None
+def $(id)_mic_callback(percent):
+	self.set_$(mic_changevar)(percent)
+
+self.$(id).on_mic_changed.connect($(id)_mic_callback)
+#end if
+
 #if $rfattenchangevar() is not None
 def $(id)_rfatten_callback(onoff):
 	self.set_$(rfattenchangevar)(onoff)
@@ -89,14 +114,18 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
 #end if
 
   </make>
-  <callback>set_itu_region($itu_region)</callback>
-  <callback>set_band_id($band_id)</callback>
-  <callback>set_bandwidth_low($bandwidth_low)</callback>
-  <callback>set_bandwidth_high($bandwidth_high)</callback>
-  <callback>set_volume($volume)</callback>
-  <callback>set_vfo_freq($vfo_freq)</callback>
-  <callback>set_lo_freq($lo_freq)</callback>
-  <callback>set_sample_rate($sample_rate)</callback>
+  <callback>set_itu_region_cb($itu_region)</callback>
+  <callback>set_band_id_cb($band_id)</callback>
+  <callback>set_bandwidth_low_cb($bandwidth_low)</callback>
+  <callback>set_bandwidth_high_cb($bandwidth_high)</callback>
+  <callback>set_volume_cb($volume)</callback>
+  <callback>set_rf_gain_cb($rf_gain)</callback>
+  <callback>set_drive_cb($drive)</callback>
+  <callback>set_mic_cb($mic)</callback>
+  <callback>set_vfo_freq_cb($vfo_freq)</callback>
+  <callback>set_lo_freq_cb($lo_freq)</callback>
+  <callback>set_sample_rate_cb($sample_rate)</callback>
+  <callback>set_modulation_mode_cb($modulation_mode)</callback>
   <param>
       <name>GUI Hint</name>
       <key>gui_hint</key>
@@ -140,6 +169,27 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
       <hide>part</hide>
   </param>
   <param>
+      <name>RF Gain</name>
+      <key>rf_gain</key>
+      <value>100</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>Drive</name>
+      <key>drive</key>
+      <value>0</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
+      <name>Mic</name>
+      <key>mic</key>
+      <value>60</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
       <name>VFO Frequency</name>
       <key>vfo_freq</key>
       <value>7001000</value>
@@ -161,11 +211,19 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
       <hide>part</hide>
   </param>
   <param>
+      <name>Modulation Mode</name>
+      <key>modulation_mode</key>
+      <value>3</value>
+      <type>int</type>
+      <hide>part</hide>
+  </param>
+  <param>
     <name>Band Changed variable</name>
     <key>bandchangevar</key>
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>Bandwidth High Changed variable</name>
@@ -173,6 +231,7 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>Bandwidth Low Changed variable</name>
@@ -180,6 +239,7 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>VFO Frequency Changed variable</name>
@@ -187,6 +247,7 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>LO Frequency Changed variable</name>
@@ -194,6 +255,7 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>Modulation Mode Changed variable</name>
@@ -201,6 +263,7 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>Volume Changed variable</name>
@@ -208,6 +271,7 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>RF Attenuator Changed variable</name>
@@ -215,6 +279,7 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>RF Preamp Changed variable</name>
@@ -222,6 +287,7 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
   </param>
   <param>
     <name>Audio Preamp Changed variable</name>
@@ -229,5 +295,30 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>
+    <tab>Slots</tab>
+  </param>
+  <param>
+    <name>RF Gain Changed variable</name>
+    <key>rf_gain_changevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+    <tab>Slots</tab>
+  </param>
+  <param>
+    <name>Drive Changed variable</name>
+    <key>drive_changevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+    <tab>Slots</tab>
+  </param>
+  <param>
+    <name>Mic Changed variable</name>
+    <key>mic_changevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+    <tab>Slots</tab>
   </param>
 </block>
