@@ -697,7 +697,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QPushButton" name="pbMox">
+            <widget class="QPushButton" name="pbVox">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -714,7 +714,7 @@ p, li { white-space: pre-wrap; }
               </size>
              </property>
              <property name="text">
-              <string>MOX</string>
+              <string>VOX</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -791,7 +791,7 @@ p, li { white-space: pre-wrap; }
               </size>
              </property>
              <property name="text">
-              <string>MUT</string>
+              <string>MUTE</string>
              </property>
              <property name="checkable">
               <bool>true</bool>

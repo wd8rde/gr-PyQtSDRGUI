@@ -24,14 +24,13 @@ sys.path.append(os.environ.get('GRC_HIER_PATH', os.path.expanduser('~/.grc_gnura
 
 from PyQt5 import Qt
 from PyQt5 import Qt, QtCore
+from genesis_g59_xcvr import genesis_g59_xcvr  # grc-generated hier_block
 from gnuradio import eng_notation
 from gnuradio import gr
 from gnuradio import qtgui
 from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from optparse import OptionParser
-from ssb_rx import ssb_rx  # grc-generated hier_block
-import genesis
 import gr_PyQtSDRGUI as PyQtSDRGUI
 import sip
 from gnuradio import qtgui
@@ -67,28 +66,53 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
+        self.variable_on_lo_freq_0 = variable_on_lo_freq_0 = 10000000
+        self.variable_gui_on_vfo_freq_0 = variable_gui_on_vfo_freq_0 = 10001000
         self.variable_volume_percent_0 = variable_volume_percent_0 = 25
         self.variable_rf_gain_percent0 = variable_rf_gain_percent0 = 100
-        self.variable_gui_modulation_0 = variable_gui_modulation_0 = 3
-        self.variable_drive_percent_0 = variable_drive_percent_0 = 0
-        self.variable_rf_preamp_0 = variable_rf_preamp_0 = 0
-        self.variable_rf_atten_0 = variable_rf_atten_0 = 0
-        self.variable_qtgui_label_0_1_0 = variable_qtgui_label_0_1_0 = variable_drive_percent_0
+        self.variable_gui_modulation_0 = variable_gui_modulation_0 = "LSB"
+        self.freq_offset_0 = freq_offset_0 = variable_gui_on_vfo_freq_0 - variable_on_lo_freq_0
+        self.variable_vox_0 = variable_vox_0 = 0
+        self.variable_rf_preamp_0 = variable_rf_preamp_0 = False
+        self.variable_rf_atten_0 = variable_rf_atten_0 = False
+        self.variable_qtgui_label_0_1_1 = variable_qtgui_label_0_1_1 = variable_rf_gain_percent0
+        self.variable_qtgui_label_0_1_0 = variable_qtgui_label_0_1_0 = freq_offset_0
         self.variable_qtgui_label_0_1 = variable_qtgui_label_0_1 = variable_rf_gain_percent0
         self.variable_qtgui_label_0_0 = variable_qtgui_label_0_0 = variable_volume_percent_0
         self.variable_qtgui_label_0 = variable_qtgui_label_0 = variable_gui_modulation_0
-        self.variable_on_lo_freq_0 = variable_on_lo_freq_0 = 10000000
-        self.variable_gui_on_vfo_freq_0 = variable_gui_on_vfo_freq_0 = 10001000
+        self.variable_mute_0 = variable_mute_0 = 0
+        self.variable_mic_percent_0 = variable_mic_percent_0 = 60
         self.variable_gui_on_band_0 = variable_gui_on_band_0 = 0
         self.variable_gui_bandwidth_low_0 = variable_gui_bandwidth_low_0 = 200
         self.variable_gui_bandwidth_high_0 = variable_gui_bandwidth_high_0 = 2700
+        self.variable_drive_percent_0 = variable_drive_percent_0 = 0
         self.variable_audio_preamp_0 = variable_audio_preamp_0 = 0
-        self.samp_rate = samp_rate = 48000
-        self.audio_gain = audio_gain = (variable_volume_percent_0/100.0)*10.0
+        self.samp_rate = samp_rate = 19200
+        self.rf_gain_0 = rf_gain_0 = (variable_rf_gain_percent0/100.0)
+        self.iq_samp_rate = iq_samp_rate = 48000
+        self.iq_input_device = iq_input_device = "plughw:SB,0"
+        self.audio_samp_rate = audio_samp_rate = 48000
+        self.audio_output_device = audio_output_device = "pulse"
+        self.audio_gain = audio_gain = (variable_volume_percent_0/100.0)
 
         ##################################################
         # Blocks
         ##################################################
+        self._variable_qtgui_label_0_1_1_tool_bar = Qt.QToolBar(self)
+
+        if None:
+          self._variable_qtgui_label_0_1_1_formatter = None
+        else:
+          self._variable_qtgui_label_0_1_1_formatter = lambda x: str(x)
+
+        self._variable_qtgui_label_0_1_1_tool_bar.addWidget(Qt.QLabel('LO Freq'+": "))
+        self._variable_qtgui_label_0_1_1_label = Qt.QLabel(str(self._variable_qtgui_label_0_1_1_formatter(self.variable_qtgui_label_0_1_1)))
+        self._variable_qtgui_label_0_1_1_tool_bar.addWidget(self._variable_qtgui_label_0_1_1_label)
+        self.top_grid_layout.addWidget(self._variable_qtgui_label_0_1_1_tool_bar, 3, 0, 1, 1)
+        for r in range(3, 4):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(0, 1):
+            self.top_grid_layout.setColumnStretch(c, 1)
         self._variable_qtgui_label_0_1_0_tool_bar = Qt.QToolBar(self)
 
         if None:
@@ -96,13 +120,13 @@ class top_block(gr.top_block, Qt.QWidget):
         else:
           self._variable_qtgui_label_0_1_0_formatter = lambda x: str(x)
 
-        self._variable_qtgui_label_0_1_0_tool_bar.addWidget(Qt.QLabel('Drive'+": "))
+        self._variable_qtgui_label_0_1_0_tool_bar.addWidget(Qt.QLabel('Freq offset'+": "))
         self._variable_qtgui_label_0_1_0_label = Qt.QLabel(str(self._variable_qtgui_label_0_1_0_formatter(self.variable_qtgui_label_0_1_0)))
         self._variable_qtgui_label_0_1_0_tool_bar.addWidget(self._variable_qtgui_label_0_1_0_label)
-        self.top_grid_layout.addWidget(self._variable_qtgui_label_0_1_0_tool_bar, 2, 3, 1, 1)
-        for r in range(2, 3):
+        self.top_grid_layout.addWidget(self._variable_qtgui_label_0_1_0_tool_bar, 3, 1, 1, 1)
+        for r in range(3, 4):
             self.top_grid_layout.setRowStretch(r, 1)
-        for c in range(3, 4):
+        for c in range(1, 2):
             self.top_grid_layout.setColumnStretch(c, 1)
         self._variable_qtgui_label_0_1_tool_bar = Qt.QToolBar(self)
 
@@ -149,20 +173,35 @@ class top_block(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.ssb_rx_0 = ssb_rx(
-            af_gain=audio_gain,
-            agc_decay=.000050,
-            freq_offset=variable_on_lo_freq_0 - variable_gui_on_vfo_freq_0,
-            low_cut=variable_gui_bandwidth_low_0,
-            modulation_mode=variable_gui_modulation_0,
-            samp_rate=samp_rate,
-            width=variable_gui_bandwidth_high_0,
+        self.qtgui_sink_x_0_0 = qtgui.sink_c(
+        	4096, #fftsize
+        	firdes.WIN_BLACKMAN, #wintype
+        	0, #fc
+        	variable_gui_bandwidth_high_0 *10, #bw
+        	"", #name
+        	True, #plotfreq
+        	True, #plotwaterfall
+        	True, #plottime
+        	True, #plotconst
         )
+        self.qtgui_sink_x_0_0.set_update_time(1.0/15)
+        self._qtgui_sink_x_0_0_win = sip.wrapinstance(self.qtgui_sink_x_0_0.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_sink_x_0_0_win, 4, 0, 1, 4)
+        for r in range(4, 5):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(0, 4):
+            self.top_grid_layout.setColumnStretch(c, 1)
+
+
+        self.qtgui_sink_x_0_0.enable_rf_freq(True)
+
+
+
         self.qtgui_sink_x_0 = qtgui.sink_c(
         	4096, #fftsize
-        	firdes.WIN_BLACKMAN_hARRIS, #wintype
+        	firdes.WIN_BLACKMAN, #wintype
         	variable_on_lo_freq_0, #fc
-        	samp_rate, #bw
+        	iq_samp_rate, #bw
         	"", #name
         	True, #plotfreq
         	True, #plotwaterfall
@@ -171,10 +210,10 @@ class top_block(gr.top_block, Qt.QWidget):
         )
         self.qtgui_sink_x_0.set_update_time(1.0/15)
         self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_sink_x_0_win, 1, 0, 1, 1)
+        self.top_grid_layout.addWidget(self._qtgui_sink_x_0_win, 1, 0, 1, 4)
         for r in range(1, 2):
             self.top_grid_layout.setRowStretch(r, 1)
-        for c in range(0, 1):
+        for c in range(0, 4):
             self.top_grid_layout.setColumnStretch(c, 1)
 
 
@@ -182,16 +221,23 @@ class top_block(gr.top_block, Qt.QWidget):
 
 
 
-        self.genesis_g59_0 = genesis.g59(
-                         freq=variable_on_lo_freq_0,
-                         filt=variable_gui_on_band_0,
-                         attenuation=variable_rf_atten_0,
-                         audiopreamp=variable_audio_preamp_0,
-                         rfpreamp=variable_rf_preamp_0,
-                         tx=False,
-                         transverterver=False,
-                         dummy_usb=False)
-
+        self.genesis_g59_xcvr_0 = genesis_g59_xcvr(
+            audio_out_device_param=audio_output_device,
+            audio_output_gain=audio_gain,
+            audio_preamp_param=variable_audio_preamp_0,
+            audio_samp_rate_param=audio_samp_rate,
+            band_param=variable_gui_on_band_0,
+            bandwidth_hi_param=variable_gui_bandwidth_high_0,
+            bandwidth_low_param=variable_gui_bandwidth_low_0,
+            freq_offset_param=freq_offset_0,
+            input_iq_audio_device_param=iq_input_device,
+            iq_sample_rate_param=iq_samp_rate,
+            lo_freq_param=variable_on_lo_freq_0,
+            mod_mode_param=variable_gui_modulation_0,
+            rf_atten_param=variable_rf_atten_0,
+            rf_gain_param=rf_gain_0,
+            rf_preamp_param=variable_rf_preamp_0,
+        )
         self.PyQtSDRGUI_0 = PyQtSDRGUI.PyQtSDRGUI(parent=None,
                               itu_region='itu-region2',
                               band_id=1,
@@ -199,10 +245,12 @@ class top_block(gr.top_block, Qt.QWidget):
                               bandwidth_high=2700,
                               volume=5,
                               rf_gain=100,
+                              drive=0,
+                              mic=60,
                               vfo_freq=7001000,
                               lo_freq=7000000,
-                              sample_rate=44100,
-                              modulation_mode=3)
+                              sample_rate=iq_samp_rate,
+                              modulation_mode='3')
         self.top_grid_layout.addWidget(self.PyQtSDRGUI_0, 0, 0, 1, 4)
         for r in range(0, 1):
             self.top_grid_layout.setRowStretch(r, 1)
@@ -255,6 +303,11 @@ class top_block(gr.top_block, Qt.QWidget):
 
         self.PyQtSDRGUI_0.on_drive_changed.connect(PyQtSDRGUI_0_drive_callback)
 
+        def PyQtSDRGUI_0_mic_callback(percent):
+        	self.set_variable_mic_percent_0(percent)
+
+        self.PyQtSDRGUI_0.on_mic_changed.connect(PyQtSDRGUI_0_mic_callback)
+
         def PyQtSDRGUI_0_rfatten_callback(onoff):
         	self.set_variable_rf_atten_0(onoff)
 
@@ -264,6 +317,16 @@ class top_block(gr.top_block, Qt.QWidget):
         	self.set_variable_rf_preamp_0(onoff)
 
         self.PyQtSDRGUI_0.on_rfpreamp_toggled.connect(PyQtSDRGUI_0_rfpreamp_callback)
+
+        def PyQtSDRGUI_0_vox_callback(onoff):
+        	self.set_variable_vox_0(onoff)
+
+        self.PyQtSDRGUI_0.on_vox_toggled.connect(PyQtSDRGUI_0_vox_callback)
+
+        def PyQtSDRGUI_0_mute_callback(onoff):
+        	self.set_variable_mute_0(onoff)
+
+        self.PyQtSDRGUI_0.on_mute_toggled.connect(PyQtSDRGUI_0_mute_callback)
 
         def PyQtSDRGUI_0_audiopreamp_callback(onoff):
         	self.set_variable_audio_preamp_0(onoff)
@@ -277,19 +340,36 @@ class top_block(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.ssb_rx_0, 0), (self.qtgui_sink_x_0, 0))
+        self.connect((self.genesis_g59_xcvr_0, 0), (self.qtgui_sink_x_0, 0))
+        self.connect((self.genesis_g59_xcvr_0, 2), (self.qtgui_sink_x_0_0, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "top_block")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
+    def get_variable_on_lo_freq_0(self):
+        return self.variable_on_lo_freq_0
+
+    def set_variable_on_lo_freq_0(self, variable_on_lo_freq_0):
+        self.variable_on_lo_freq_0 = variable_on_lo_freq_0
+        self.set_freq_offset_0(self.variable_gui_on_vfo_freq_0 - self.variable_on_lo_freq_0)
+        self.qtgui_sink_x_0.set_frequency_range(self.variable_on_lo_freq_0, self.iq_samp_rate)
+        self.genesis_g59_xcvr_0.set_lo_freq_param(self.variable_on_lo_freq_0)
+
+    def get_variable_gui_on_vfo_freq_0(self):
+        return self.variable_gui_on_vfo_freq_0
+
+    def set_variable_gui_on_vfo_freq_0(self, variable_gui_on_vfo_freq_0):
+        self.variable_gui_on_vfo_freq_0 = variable_gui_on_vfo_freq_0
+        self.set_freq_offset_0(self.variable_gui_on_vfo_freq_0 - self.variable_on_lo_freq_0)
+
     def get_variable_volume_percent_0(self):
         return self.variable_volume_percent_0
 
     def set_variable_volume_percent_0(self, variable_volume_percent_0):
         self.variable_volume_percent_0 = variable_volume_percent_0
-        self.set_audio_gain((self.variable_volume_percent_0/100.0)*10.0)
+        self.set_audio_gain((self.variable_volume_percent_0/100.0))
         self.set_variable_qtgui_label_0_0(self._variable_qtgui_label_0_0_formatter(self.variable_volume_percent_0))
 
     def get_variable_rf_gain_percent0(self):
@@ -297,6 +377,8 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_variable_rf_gain_percent0(self, variable_rf_gain_percent0):
         self.variable_rf_gain_percent0 = variable_rf_gain_percent0
+        self.set_rf_gain_0((self.variable_rf_gain_percent0/100.0))
+        self.set_variable_qtgui_label_0_1_1(self._variable_qtgui_label_0_1_1_formatter(self.variable_rf_gain_percent0))
         self.set_variable_qtgui_label_0_1(self._variable_qtgui_label_0_1_formatter(self.variable_rf_gain_percent0))
 
     def get_variable_gui_modulation_0(self):
@@ -305,28 +387,42 @@ class top_block(gr.top_block, Qt.QWidget):
     def set_variable_gui_modulation_0(self, variable_gui_modulation_0):
         self.variable_gui_modulation_0 = variable_gui_modulation_0
         self.set_variable_qtgui_label_0(self._variable_qtgui_label_0_formatter(self.variable_gui_modulation_0))
-        self.ssb_rx_0.set_modulation_mode(self.variable_gui_modulation_0)
+        self.genesis_g59_xcvr_0.set_mod_mode_param(self.variable_gui_modulation_0)
 
-    def get_variable_drive_percent_0(self):
-        return self.variable_drive_percent_0
+    def get_freq_offset_0(self):
+        return self.freq_offset_0
 
-    def set_variable_drive_percent_0(self, variable_drive_percent_0):
-        self.variable_drive_percent_0 = variable_drive_percent_0
-        self.set_variable_qtgui_label_0_1_0(self._variable_qtgui_label_0_1_0_formatter(self.variable_drive_percent_0))
+    def set_freq_offset_0(self, freq_offset_0):
+        self.freq_offset_0 = freq_offset_0
+        self.set_variable_qtgui_label_0_1_0(self._variable_qtgui_label_0_1_0_formatter(self.freq_offset_0))
+        self.genesis_g59_xcvr_0.set_freq_offset_param(self.freq_offset_0)
+
+    def get_variable_vox_0(self):
+        return self.variable_vox_0
+
+    def set_variable_vox_0(self, variable_vox_0):
+        self.variable_vox_0 = variable_vox_0
 
     def get_variable_rf_preamp_0(self):
         return self.variable_rf_preamp_0
 
     def set_variable_rf_preamp_0(self, variable_rf_preamp_0):
         self.variable_rf_preamp_0 = variable_rf_preamp_0
-        self.genesis_g59_0.rfpreamp(self.variable_rf_preamp_0)
+        self.genesis_g59_xcvr_0.set_rf_preamp_param(self.variable_rf_preamp_0)
 
     def get_variable_rf_atten_0(self):
         return self.variable_rf_atten_0
 
     def set_variable_rf_atten_0(self, variable_rf_atten_0):
         self.variable_rf_atten_0 = variable_rf_atten_0
-        self.genesis_g59_0.attenuator(self.variable_rf_atten_0)
+        self.genesis_g59_xcvr_0.set_rf_atten_param(self.variable_rf_atten_0)
+
+    def get_variable_qtgui_label_0_1_1(self):
+        return self.variable_qtgui_label_0_1_1
+
+    def set_variable_qtgui_label_0_1_1(self, variable_qtgui_label_0_1_1):
+        self.variable_qtgui_label_0_1_1 = variable_qtgui_label_0_1_1
+        Qt.QMetaObject.invokeMethod(self._variable_qtgui_label_0_1_1_label, "setText", Qt.Q_ARG("QString", self.variable_qtgui_label_0_1_1))
 
     def get_variable_qtgui_label_0_1_0(self):
         return self.variable_qtgui_label_0_1_0
@@ -356,64 +452,102 @@ class top_block(gr.top_block, Qt.QWidget):
         self.variable_qtgui_label_0 = variable_qtgui_label_0
         Qt.QMetaObject.invokeMethod(self._variable_qtgui_label_0_label, "setText", Qt.Q_ARG("QString", self.variable_qtgui_label_0))
 
-    def get_variable_on_lo_freq_0(self):
-        return self.variable_on_lo_freq_0
+    def get_variable_mute_0(self):
+        return self.variable_mute_0
 
-    def set_variable_on_lo_freq_0(self, variable_on_lo_freq_0):
-        self.variable_on_lo_freq_0 = variable_on_lo_freq_0
-        self.ssb_rx_0.set_freq_offset(self.variable_on_lo_freq_0 - self.variable_gui_on_vfo_freq_0)
-        self.qtgui_sink_x_0.set_frequency_range(self.variable_on_lo_freq_0, self.samp_rate)
-        self.genesis_g59_0.set_lo_frequency(self.variable_on_lo_freq_0)
+    def set_variable_mute_0(self, variable_mute_0):
+        self.variable_mute_0 = variable_mute_0
 
-    def get_variable_gui_on_vfo_freq_0(self):
-        return self.variable_gui_on_vfo_freq_0
+    def get_variable_mic_percent_0(self):
+        return self.variable_mic_percent_0
 
-    def set_variable_gui_on_vfo_freq_0(self, variable_gui_on_vfo_freq_0):
-        self.variable_gui_on_vfo_freq_0 = variable_gui_on_vfo_freq_0
-        self.ssb_rx_0.set_freq_offset(self.variable_on_lo_freq_0 - self.variable_gui_on_vfo_freq_0)
+    def set_variable_mic_percent_0(self, variable_mic_percent_0):
+        self.variable_mic_percent_0 = variable_mic_percent_0
 
     def get_variable_gui_on_band_0(self):
         return self.variable_gui_on_band_0
 
     def set_variable_gui_on_band_0(self, variable_gui_on_band_0):
         self.variable_gui_on_band_0 = variable_gui_on_band_0
-        self.genesis_g59_0.set_band_filter(self.variable_gui_on_band_0)
+        self.genesis_g59_xcvr_0.set_band_param(self.variable_gui_on_band_0)
 
     def get_variable_gui_bandwidth_low_0(self):
         return self.variable_gui_bandwidth_low_0
 
     def set_variable_gui_bandwidth_low_0(self, variable_gui_bandwidth_low_0):
         self.variable_gui_bandwidth_low_0 = variable_gui_bandwidth_low_0
-        self.ssb_rx_0.set_low_cut(self.variable_gui_bandwidth_low_0)
+        self.genesis_g59_xcvr_0.set_bandwidth_low_param(self.variable_gui_bandwidth_low_0)
 
     def get_variable_gui_bandwidth_high_0(self):
         return self.variable_gui_bandwidth_high_0
 
     def set_variable_gui_bandwidth_high_0(self, variable_gui_bandwidth_high_0):
         self.variable_gui_bandwidth_high_0 = variable_gui_bandwidth_high_0
-        self.ssb_rx_0.set_width(self.variable_gui_bandwidth_high_0)
+        self.qtgui_sink_x_0_0.set_frequency_range(0, self.variable_gui_bandwidth_high_0 *10)
+        self.genesis_g59_xcvr_0.set_bandwidth_hi_param(self.variable_gui_bandwidth_high_0)
+
+    def get_variable_drive_percent_0(self):
+        return self.variable_drive_percent_0
+
+    def set_variable_drive_percent_0(self, variable_drive_percent_0):
+        self.variable_drive_percent_0 = variable_drive_percent_0
 
     def get_variable_audio_preamp_0(self):
         return self.variable_audio_preamp_0
 
     def set_variable_audio_preamp_0(self, variable_audio_preamp_0):
         self.variable_audio_preamp_0 = variable_audio_preamp_0
-        self.genesis_g59_0.audiopreamp(self.variable_audio_preamp_0)
+        self.genesis_g59_xcvr_0.set_audio_preamp_param(self.variable_audio_preamp_0)
 
     def get_samp_rate(self):
         return self.samp_rate
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.ssb_rx_0.set_samp_rate(self.samp_rate)
-        self.qtgui_sink_x_0.set_frequency_range(self.variable_on_lo_freq_0, self.samp_rate)
+
+    def get_rf_gain_0(self):
+        return self.rf_gain_0
+
+    def set_rf_gain_0(self, rf_gain_0):
+        self.rf_gain_0 = rf_gain_0
+        self.genesis_g59_xcvr_0.set_rf_gain_param(self.rf_gain_0)
+
+    def get_iq_samp_rate(self):
+        return self.iq_samp_rate
+
+    def set_iq_samp_rate(self, iq_samp_rate):
+        self.iq_samp_rate = iq_samp_rate
+        self.qtgui_sink_x_0.set_frequency_range(self.variable_on_lo_freq_0, self.iq_samp_rate)
+        self.genesis_g59_xcvr_0.set_iq_sample_rate_param(self.iq_samp_rate)
+        self.PyQtSDRGUI_0.set_sample_rate_cb(self.iq_samp_rate)
+
+    def get_iq_input_device(self):
+        return self.iq_input_device
+
+    def set_iq_input_device(self, iq_input_device):
+        self.iq_input_device = iq_input_device
+        self.genesis_g59_xcvr_0.set_input_iq_audio_device_param(self.iq_input_device)
+
+    def get_audio_samp_rate(self):
+        return self.audio_samp_rate
+
+    def set_audio_samp_rate(self, audio_samp_rate):
+        self.audio_samp_rate = audio_samp_rate
+        self.genesis_g59_xcvr_0.set_audio_samp_rate_param(self.audio_samp_rate)
+
+    def get_audio_output_device(self):
+        return self.audio_output_device
+
+    def set_audio_output_device(self, audio_output_device):
+        self.audio_output_device = audio_output_device
+        self.genesis_g59_xcvr_0.set_audio_out_device_param(self.audio_output_device)
 
     def get_audio_gain(self):
         return self.audio_gain
 
     def set_audio_gain(self, audio_gain):
         self.audio_gain = audio_gain
-        self.ssb_rx_0.set_af_gain(self.audio_gain)
+        self.genesis_g59_xcvr_0.set_audio_output_gain(self.audio_gain)
 
 
 def main(top_block_cls=top_block, options=None):

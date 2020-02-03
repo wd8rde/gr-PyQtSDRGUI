@@ -106,6 +106,20 @@ def $(id)_rfpreamp_callback(onoff):
 self.$(id).on_rfpreamp_toggled.connect($(id)_rfpreamp_callback)
 #end if
 
+#if $voxchangevar() is not None
+def $(id)_vox_callback(onoff):
+	self.set_$(voxchangevar)(onoff)
+
+self.$(id).on_vox_toggled.connect($(id)_vox_callback)
+#end if
+
+#if $mutechangevar() is not None
+def $(id)_mute_callback(onoff):
+	self.set_$(mutechangevar)(onoff)
+
+self.$(id).on_mute_toggled.connect($(id)_mute_callback)
+#end if
+
 #if $audiopreampchangevar() is not None
 def $(id)_audiopreamp_callback(onoff):
 	self.set_$(audiopreampchangevar)(onoff)
@@ -213,8 +227,8 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
   <param>
       <name>Modulation Mode</name>
       <key>modulation_mode</key>
-      <value>3</value>
-      <type>int</type>
+      <value>LSB</value>
+      <type>string</type>
       <hide>part</hide>
   </param>
   <param>
@@ -292,6 +306,22 @@ self.$(id).on_audiopreamp_toggled.connect($(id)_audiopreamp_callback)
   <param>
     <name>Audio Preamp Changed variable</name>
     <key>audiopreampchangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+    <tab>Slots</tab>
+  </param>
+  <param>
+    <name>Vox Changed variable</name>
+    <key>voxchangevar</key>
+    <value>None</value>
+    <type>raw</type>
+    <hide>part</hide>
+    <tab>Slots</tab>
+  </param>
+  <param>
+    <name>Mute Changed variable</name>
+    <key>mutechangevar</key>
     <value>None</value>
     <type>raw</type>
     <hide>part</hide>

@@ -43,7 +43,7 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
     on_bandwidth_low = Qt.pyqtSignal(int)
     on_vfo_frequency = Qt.pyqtSignal(int)
     on_lo_frequency = Qt.pyqtSignal(int)
-    on_modulation_mode = Qt.pyqtSignal(int)
+    on_modulation_mode = Qt.pyqtSignal(str)
     on_volume_changed = Qt.pyqtSignal(int)
     on_rf_gain_changed = Qt.pyqtSignal(int)
     on_drive_changed = Qt.pyqtSignal(int)
@@ -51,6 +51,8 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
     on_rfatten_toggled = Qt.pyqtSignal(bool)
     on_rfpreamp_toggled = Qt.pyqtSignal(bool)
     on_audiopreamp_toggled = Qt.pyqtSignal(bool)
+    on_vox_toggled = Qt.pyqtSignal(bool)
+    on_mute_toggled = Qt.pyqtSignal(bool)
 
     def __init__(self,
                  parent=None,
@@ -113,8 +115,7 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
 
     def set_modulation_mode_cb(self, mode):
         print("Setting Modulation mode to ", mode)
-        if(mode in self.modulation_idx2mode_map):
-            self.set_modulation_mode(self.modulation_idx2mode_map[mode])
+        self.set_modulation_mode(mode)
 
     def on_band_event(self, band_id):
         print("PyQtSdrGui 'on_band' %d"%band_id)
@@ -137,12 +138,8 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
         self.on_lo_frequency.emit(int(freq))
 
     def on_modulation_mode_event(self,mode):
-        if(mode in self.modulation_mode2idx_map):
-            mode_idx = self.modulation_mode2idx_map[mode]
-            print("PyQtSdrGui 'on_modulation_mode_event' %s, emitting %d"%(str(mode),int(mode_idx)))
-            self.on_modulation_mode.emit(int(mode_idx))
-        else:
-            print("PyQtSdrGui 'on_modulation_mode_event' %s not in mode_map"%(str(mode)))
+        print("PyQtSdrGui 'on_modulation_mode_event' %s"%(str(mode)))
+        self.on_modulation_mode.emit(mode)
 
     def on_volume_changed_event(self,percent):
         print('on_volume_changed',percent)
@@ -171,6 +168,14 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
     def on_audiopreamp_toggled_event(self, toggled):
         print('on_audiopreamp_toggled',toggled)
         self.on_audiopreamp_toggled.emit((toggled))
+
+    def on_vox_toggled_event(self, toggled):
+        print('on_vox_toggled',toggled)
+        self.on_vox_toggled.emit((toggled))
+
+    def on_mute_toggled_event(self, toggled):
+        print('on_mute_toggled',toggled)
+        self.on_mute_toggled.emit((toggled))
 
 class my_top_block(gr.top_block):
     def __init__(self):

@@ -15,11 +15,8 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
                  vfo_freq=7001000,
                  lo_freq=7000000,
                  sample_rate=44100,
-                 modulation_mode=3):
+                 modulation_mode='LSB'):
 
-        #Modulation Mode
-        self.modulation_mode2idx_map = {'AM':0,'SAM':1,'DSB':2,'LSB':3,'USB':4,'CWL':5,'CWU':6,'FMN':7,'SPEC':8,'DIGL':9,'DIGU':10,'DRM':11 }
-        self.modulation_idx2mode_map = {0:'AM',1:'SAM',2:'DSB',3:'LSB',4:'USB',5:'CWL',6:'CWU',7:'FMN',8:'SPEC',9:'DIGL',10:'DIGU',11:'DRM' }
 
         Ui_OpenGRSDR.__init__(self)
         self.current_band = band_id
@@ -79,7 +76,7 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
         self.current_rf_gain = rf_gain
         self.current_drive = drive
         self.current_mic = mic
-        self.modulation_mode = self.modulation_idx2mode_map[modulation_mode]
+        self.modulation_mode = modulation_mode
         self.sample_rate = sample_rate
 
     def setupUi(self, object):
@@ -206,6 +203,8 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
         self.pbAtten.toggled.connect(lambda i: self._on_rfatten_toggled(i))
         self.pbPreamp.toggled.connect(lambda i: self._on_rfpreamp_toggled(i))
         self.pbPa.toggled.connect(lambda i: self._on_audiopreamp_toggled(i))
+        self.pbVox.toggled.connect(lambda i: self._on_vox_toggled(i))
+        self.pbMute.toggled.connect(lambda i: self._on_mute_toggled(i))
 
     def wheelEvent(self, event):
         delta= ((event.angleDelta()/8)/15)
@@ -418,19 +417,28 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
 
     def on_rfatten_toggled_event(self, toggled):
         print('on_rfatten_toggled',toggled)
-        pass
 
     def _on_rfpreamp_toggled(self, toggled):
         self.on_rfpreamp_toggled_event(toggled)
 
     def on_rfpreamp_toggled_event(self, toggled):
         print('on_rfpreamp_toggled',toggled)
-        pass
 
     def _on_audiopreamp_toggled(self, toggled):
         self.on_audiopreamp_toggled_event(toggled)
 
     def on_audiopreamp_toggled_event(self, toggled):
         print('on_audiopreamp_toggled',toggled)
-        pass
+
+    def _on_vox_toggled(self, toggled):
+        self.on_vox_toggled_event(toggled)
+
+    def on_vox_toggled_event(self, toggled):
+        print('on_vox_toggled',toggled)
+
+    def _on_mute_toggled(self, toggled):
+        self.on_mute_toggled_event(toggled)
+
+    def on_mute_toggled_event(self, toggled):
+        print('on_mute_toggled',toggled)
 
