@@ -92,7 +92,7 @@ class top_block(gr.top_block, Qt.QWidget):
         self.iq_samp_rate = iq_samp_rate = 48000
         self.iq_input_device = iq_input_device = "plughw:SB,0"
         self.audio_samp_rate = audio_samp_rate = 48000
-        self.audio_output_device = audio_output_device = "pulse"
+        self.audio_output_device = audio_output_device = "hw:Pro,0"
         self.audio_gain = audio_gain = (variable_volume_percent_0/100.0)
 
         ##################################################
@@ -173,30 +173,6 @@ class top_block(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.qtgui_sink_x_0_0 = qtgui.sink_c(
-        	4096, #fftsize
-        	firdes.WIN_BLACKMAN, #wintype
-        	0, #fc
-        	variable_gui_bandwidth_high_0 *10, #bw
-        	"", #name
-        	True, #plotfreq
-        	True, #plotwaterfall
-        	True, #plottime
-        	True, #plotconst
-        )
-        self.qtgui_sink_x_0_0.set_update_time(1.0/15)
-        self._qtgui_sink_x_0_0_win = sip.wrapinstance(self.qtgui_sink_x_0_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_sink_x_0_0_win, 4, 0, 1, 4)
-        for r in range(4, 5):
-            self.top_grid_layout.setRowStretch(r, 1)
-        for c in range(0, 4):
-            self.top_grid_layout.setColumnStretch(c, 1)
-
-
-        self.qtgui_sink_x_0_0.enable_rf_freq(True)
-
-
-
         self.qtgui_sink_x_0 = qtgui.sink_c(
         	4096, #fftsize
         	firdes.WIN_BLACKMAN, #wintype
@@ -206,7 +182,7 @@ class top_block(gr.top_block, Qt.QWidget):
         	True, #plotfreq
         	True, #plotwaterfall
         	False, #plottime
-        	True, #plotconst
+        	False, #plotconst
         )
         self.qtgui_sink_x_0.set_update_time(1.0/15)
         self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.pyqwidget(), Qt.QWidget)
@@ -341,7 +317,6 @@ class top_block(gr.top_block, Qt.QWidget):
         # Connections
         ##################################################
         self.connect((self.genesis_g59_xcvr_0, 0), (self.qtgui_sink_x_0, 0))
-        self.connect((self.genesis_g59_xcvr_0, 2), (self.qtgui_sink_x_0_0, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "top_block")
@@ -483,7 +458,6 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_variable_gui_bandwidth_high_0(self, variable_gui_bandwidth_high_0):
         self.variable_gui_bandwidth_high_0 = variable_gui_bandwidth_high_0
-        self.qtgui_sink_x_0_0.set_frequency_range(0, self.variable_gui_bandwidth_high_0 *10)
         self.genesis_g59_xcvr_0.set_bandwidth_hi_param(self.variable_gui_bandwidth_high_0)
 
     def get_variable_drive_percent_0(self):
