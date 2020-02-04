@@ -298,6 +298,69 @@
     </param>
   </block>
   <block>
+    <key>blks2_selector</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1112, 457)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blks2_selector_0_0_0</value>
+    </param>
+    <param>
+      <key>input_index</key>
+      <value>demod_sel_module_0.demond_index(modulation_mode)</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>num_inputs</key>
+      <value>3</value>
+    </param>
+    <param>
+      <key>num_outputs</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>output_index</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
     <key>pad_sink</key>
     <param>
       <key>comment</key>
@@ -309,7 +372,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(224, 292)</value>
+      <value>(656, 52)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -372,7 +435,7 @@
     </param>
     <param>
       <key>num_streams</key>
-      <value>1</value>
+      <value>2</value>
     </param>
     <param>
       <key>optional</key>
@@ -581,7 +644,7 @@ def demond_index(mod_mode):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(200, 140)</value>
+      <value>(416, 150)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -606,6 +669,96 @@ def demond_index(mod_mode):
     <param>
       <key>samp_rate</key>
       <value>samp_rate_0</value>
+    </param>
+  </block>
+  <block>
+    <key>iqbalance_fix_cc</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(264, 153)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>iqbalance_fix_cc_0</value>
+    </param>
+    <param>
+      <key>mag</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>phase</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>iqbalance_optimize_c</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(240, 236)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>iqbalance_optimize_c_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>period</key>
+      <value>100000</value>
     </param>
   </block>
   <block>
@@ -850,6 +1003,12 @@ def demond_index(mod_mode):
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>am_demod_0</source_block_id>
+    <sink_block_id>blks2_selector_0_0_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>blks2_selector_0</source_block_id>
     <sink_block_id>am_demod_0</sink_block_id>
     <source_key>0</source_key>
@@ -874,14 +1033,32 @@ def demond_index(mod_mode):
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>blks2_selector_0_0_0</source_block_id>
+    <sink_block_id>demod_out</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
     <source_block_id>fmn_demod_0</source_block_id>
     <sink_block_id>blks2_selector_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>2</sink_key>
   </connection>
   <connection>
+    <source_block_id>fmn_demod_0</source_block_id>
+    <sink_block_id>blks2_selector_0_0_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
     <source_block_id>iq_in</source_block_id>
-    <sink_block_id>iq_tuner_0</sink_block_id>
+    <sink_block_id>iqbalance_fix_cc_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>iq_in</source_block_id>
+    <sink_block_id>iqbalance_optimize_c_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -898,9 +1075,27 @@ def demond_index(mod_mode):
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>iqbalance_fix_cc_0</source_block_id>
+    <sink_block_id>iq_tuner_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>iqbalance_optimize_c_0</source_block_id>
+    <sink_block_id>iqbalance_fix_cc_0</sink_block_id>
+    <source_key>iqbal_corr</source_key>
+    <sink_key>iqbal_corr</sink_key>
+  </connection>
+  <connection>
     <source_block_id>ssb_demod_0</source_block_id>
     <sink_block_id>blks2_selector_0_0</sink_block_id>
     <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>ssb_demod_0</source_block_id>
+    <sink_block_id>blks2_selector_0_0_0</sink_block_id>
+    <source_key>1</source_key>
     <sink_key>1</sink_key>
   </connection>
 </flow_graph>

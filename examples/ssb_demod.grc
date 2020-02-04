@@ -788,7 +788,7 @@
     </param>
     <param>
       <key>num_streams</key>
-      <value>1</value>
+      <value>2</value>
     </param>
     <param>
       <key>optional</key>
@@ -1178,6 +1178,12 @@ def is_dsb(mod_mode):
     <sink_block_id>demod_out_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blks2_selector_0_0</source_block_id>
+    <sink_block_id>demod_out_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_add_xx_0</source_block_id>
