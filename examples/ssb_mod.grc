@@ -454,7 +454,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>0</value>
+      <value>48000</value>
     </param>
   </block>
   <block>
@@ -477,7 +477,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(968, 393)</value>
+      <value>(1096, 393)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -509,6 +509,49 @@
     </param>
   </block>
   <block>
+    <key>blocks_float_to_complex</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(200, 369)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_float_to_complex_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
     <key>blocks_multiply_xx</key>
     <param>
       <key>alias</key>
@@ -528,7 +571,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(280, 417)</value>
+      <value>(408, 417)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -579,7 +622,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(280, 353)</value>
+      <value>(408, 353)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -630,7 +673,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(832, 425)</value>
+      <value>(960, 425)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -681,7 +724,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(832, 361)</value>
+      <value>(960, 361)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -713,6 +756,61 @@
     </param>
   </block>
   <block>
+    <key>blocks_null_source</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>bus_conns</key>
+      <value>[[0,],]</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(16, 425)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_null_source_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>num_outputs</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
     <key>complex_x_switch</key>
     <param>
       <key>alias</key>
@@ -732,7 +830,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(616, 393)</value>
+      <value>(744, 393)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -865,7 +963,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(432, 350)</value>
+      <value>(560, 350)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -924,7 +1022,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(432, 438)</value>
+      <value>(560, 438)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1045,7 +1143,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1056, 404)</value>
+      <value>(1184, 404)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1088,7 +1186,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(56, 396)</value>
+      <value>(16, 364)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1112,7 +1210,7 @@
     </param>
     <param>
       <key>type</key>
-      <value>complex</value>
+      <value>float</value>
     </param>
     <param>
       <key>vlen</key>
@@ -1150,6 +1248,18 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>blocks_float_to_complex_0</source_block_id>
+    <sink_block_id>blocks_multiply_xx_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_float_to_complex_0</source_block_id>
+    <sink_block_id>blocks_multiply_xx_0_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
     <source_block_id>blocks_multiply_xx_0_0</source_block_id>
     <sink_block_id>fft_filter_xxx_0_0</sink_block_id>
     <source_key>0</source_key>
@@ -1172,6 +1282,12 @@
     <sink_block_id>blocks_add_xx_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_null_source_0</source_block_id>
+    <sink_block_id>blocks_float_to_complex_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
   </connection>
   <connection>
     <source_block_id>complex_x_switch_0</source_block_id>
@@ -1223,14 +1339,8 @@
   </connection>
   <connection>
     <source_block_id>pad_source_0</source_block_id>
-    <sink_block_id>blocks_multiply_xx_0_0</sink_block_id>
+    <sink_block_id>blocks_float_to_complex_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>pad_source_0</source_block_id>
-    <sink_block_id>blocks_multiply_xx_0_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
   </connection>
 </flow_graph>
