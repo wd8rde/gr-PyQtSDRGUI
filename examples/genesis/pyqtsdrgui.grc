@@ -6,7 +6,7 @@
     <key>options</key>
     <param>
       <key>author</key>
-      <value></value>
+      <value>WD8RDE</value>
     </param>
     <param>
       <key>window_size</key>
@@ -82,7 +82,7 @@
     </param>
     <param>
       <key>title</key>
-      <value></value>
+      <value>PyQt SDR Gui for Genesis G59</value>
     </param>
     <param>
       <key>placement</key>
