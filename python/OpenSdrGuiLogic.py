@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 import os, sys, inspect
-from PyQt5 import QtCore, QtGui, uic
-import PyQt5.QtWidgets as QWidget
+if('PyQt5' in sys.modules.keys()):
+    print('using PyQt5')
+    from PyQt5 import QtCore, QtGui, QtWidgets, uic
+    from PyQt5.QtWidgets import QWidget
+    from PyQt5.QtWidgets import QApplication
+else:
+    sys.stderr.write("Error: Program requires PyQt5.\n")
+    sys.exit(1)
 
 module_path = os.path.dirname(inspect.getfile(inspect.currentframe()))
 ui_file = str(os.path.join(module_path,'opengrsdrgui.ui'))

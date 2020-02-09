@@ -26,33 +26,41 @@ import numpy
 
 try:
     from gnuradio import qtgui
-    #from PyQt5 import Qt, QtGui, QtCore, QtWidgets
-    from PyQt5 import Qt
 except ImportError:
-    sys.stderr.write("Error: Program requires PyQt4 and gr-qtgui.\n")
+    sys.stderr.write("Error: Program requires gr-qtgui.\n")
     sys.exit(1)
 
-from OpenSdrGuiLogic import *
+if('PyQt5' in sys.modules.keys()):
+    print('using PyQt5')
+    from PyQt5 import QtCore, QtGui, QtWidgets, uic
+    from PyQt5.QtWidgets import QWidget
+    from PyQt5.QtWidgets import QApplication
+else:
+    sys.stderr.write("Error: Program requires PyQt5.\n")
+    sys.exit(1)
 
-class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
+from OpenSdrGuiLogic import OpenSdrGuiLogic
+
+print('huh?',QWidget,OpenSdrGuiLogic)
+class PyQtSDRGUI(QWidget,OpenSdrGuiLogic):
     """
     docstring for block PyQtSdrGui
     """
-    on_band = Qt.pyqtSignal(int)
-    on_bandwidth_high = Qt.pyqtSignal(int)
-    on_bandwidth_low = Qt.pyqtSignal(int)
-    on_vfo_frequency = Qt.pyqtSignal(int)
-    on_lo_frequency = Qt.pyqtSignal(int)
-    on_modulation_mode = Qt.pyqtSignal(str)
-    on_volume_changed = Qt.pyqtSignal(int)
-    on_rf_gain_changed = Qt.pyqtSignal(int)
-    on_drive_changed = Qt.pyqtSignal(int)
-    on_mic_changed = Qt.pyqtSignal(int)
-    on_rfatten_toggled = Qt.pyqtSignal(bool)
-    on_rfpreamp_toggled = Qt.pyqtSignal(bool)
-    on_audiopreamp_toggled = Qt.pyqtSignal(bool)
-    on_vox_toggled = Qt.pyqtSignal(bool)
-    on_mute_toggled = Qt.pyqtSignal(bool)
+    on_band = QtCore.pyqtSignal(int)
+    on_bandwidth_high = QtCore.pyqtSignal(int)
+    on_bandwidth_low = QtCore.pyqtSignal(int)
+    on_vfo_frequency = QtCore.pyqtSignal(int)
+    on_lo_frequency = QtCore.pyqtSignal(int)
+    on_modulation_mode = QtCore.pyqtSignal(str)
+    on_volume_changed = QtCore.pyqtSignal(int)
+    on_rf_gain_changed = QtCore.pyqtSignal(int)
+    on_drive_changed = QtCore.pyqtSignal(int)
+    on_mic_changed = QtCore.pyqtSignal(int)
+    on_rfatten_toggled = QtCore.pyqtSignal(bool)
+    on_rfpreamp_toggled = QtCore.pyqtSignal(bool)
+    on_audiopreamp_toggled = QtCore.pyqtSignal(bool)
+    on_vox_toggled = QtCore.pyqtSignal(bool)
+    on_mute_toggled = QtCore.pyqtSignal(bool)
 
     def __init__(self,
                  parent=None,
@@ -69,7 +77,7 @@ class PyQtSDRGUI(Qt.QWidget,OpenSdrGuiLogic):
                  sample_rate=44100,
                  modulation_mode=3):
 
-        Qt.QWidget.__init__(self, parent)
+        QWidget.__init__(self, parent)
         OpenSdrGuiLogic.__init__(self,
                                  itu_region=itu_region,
                                  band_id=band_id,
@@ -184,7 +192,7 @@ class my_top_block(gr.top_block):
         self.main_box.show()
 
 def main():
-    qapp = Qt.QApplication(sys.argv)
+    qapp = QApplication(sys.argv)
     tb = my_top_block()
     tb.start()
     qapp.exec_()
