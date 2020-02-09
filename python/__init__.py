@@ -32,6 +32,5 @@ except ImportError:
 
 # import any pure python here
 from gr_PyQtSDRGUI import PyQtSDRGUI
-from OpenGrSdrGui import *
 from OpenSdrGuiLogic import *
 #

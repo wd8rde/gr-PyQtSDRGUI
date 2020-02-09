@@ -31,12 +31,16 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
-    OpenGrSdrGui.py
     OpenSdrGuiLogic.py
-    images_rc.py
-    gr_PyQtSDRGUI.py DESTINATION ${GR_PYTHON_DIR}/gr_PyQtSDRGUI
+    gr_PyQtSDRGUI.py
+    DESTINATION ${GR_PYTHON_DIR}/gr_PyQtSDRGUI
 )
 
+INSTALL(
+    FILES
+    opengrsdrgui.ui
+    DESTINATION ${GR_PYTHON_DIR}/gr_PyQtSDRGUI
+)
 ########################################################################
 # Handle the unit tests
 ########################################################################

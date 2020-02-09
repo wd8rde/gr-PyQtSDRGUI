@@ -405,7 +405,7 @@ QPushButton#pbStart::checked:hover{
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="images.qrc">
+         <iconset>
           <normaloff>:/images/power-button.png</normaloff>:/images/power-button.png</iconset>
         </property>
         <property name="checkable">
@@ -2713,7 +2713,7 @@ border-color: navy; /* make the default button prominent */
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="images.qrc">
+          <iconset>
            <normaloff>:/images/spin/up.png</normaloff>:/images/spin/up.png</iconset>
          </property>
          <property name="iconSize">
@@ -2799,7 +2799,7 @@ border-color: navy; /* make the default button prominent */
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="images.qrc">
+          <iconset>
            <normaloff>:/images/spin/down.png</normaloff>:/images/spin/down.png</iconset>
          </property>
          <property name="iconSize">
@@ -3256,7 +3256,7 @@ color: #FFFFFF;
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="images.qrc">
+             <iconset>
               <normaloff>:/images/arrows/arrow-left.png</normaloff>:/images/arrows/arrow-left.png</iconset>
             </property>
             <property name="checkable">
@@ -3285,7 +3285,7 @@ color: #FFFFFF;
              </font>
             </property>
             <property name="icon">
-             <iconset resource="images.qrc">
+             <iconset>
               <normaloff>:/images/arrows/arrow-down.png</normaloff>:/images/arrows/arrow-down.png</iconset>
             </property>
             <property name="checkable">
@@ -3322,7 +3322,7 @@ color: #FFFFFF;
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="images.qrc">
+             <iconset>
               <normaloff>:/images/arrows/arrow-right.png</normaloff>:/images/arrows/arrow-right.png</iconset>
             </property>
             <property name="checkable">
@@ -6404,9 +6404,6 @@ color: #E5E5E5;
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="images.qrc"/>
-  <include location="images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

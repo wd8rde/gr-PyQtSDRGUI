@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
-from PyQt5 import QtCore, QtGui, QtWidgets
-from OpenGrSdrGui import *
+import os, sys, inspect
+from PyQt5 import QtCore, QtGui, uic
+import PyQt5.QtWidgets as QWidget
+
+module_path = os.path.dirname(inspect.getfile(inspect.currentframe()))
+ui_file = str(os.path.join(module_path,'opengrsdrgui.ui'))
+print('uifile:',ui_file)
+Ui_OpenGRSDR,base_class = uic.loadUiType(ui_file)
 
 class OpenSdrGuiLogic(Ui_OpenGRSDR):
     def __init__(self,
