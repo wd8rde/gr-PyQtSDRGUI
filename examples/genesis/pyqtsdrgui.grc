@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<?grc format='1' created='3.7.13'?>
+<?grc format='1' created='3.7.9'?>
 <flow_graph>
   <timestamp>Mon Dec 23 12:33:33 2019</timestamp>
   <block>
@@ -73,20 +73,12 @@
       <value>True</value>
     </param>
     <param>
-      <key>sizing_mode</key>
-      <value>fixed</value>
-    </param>
-    <param>
       <key>thread_safe_setters</key>
       <value></value>
     </param>
     <param>
       <key>title</key>
       <value>PyQt SDR Gui for Genesis G59</value>
-    </param>
-    <param>
-      <key>placement</key>
-      <value>(0,0)</value>
     </param>
   </block>
   <block>
@@ -101,7 +93,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(352, 580)</value>
+      <value>(208, 325)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -117,10 +109,14 @@
     </param>
   </block>
   <block>
-    <key>variable</key>
+    <key>variable_qtgui_entry</key>
     <param>
       <key>comment</key>
       <value></value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>audio_output_device_config</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -128,7 +124,11 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(352, 516)</value>
+      <value>(520, 517)</value>
+    </param>
+    <param>
+      <key>gui_hint</key>
+      <value>main_qttab_0@1:1,0,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -139,15 +139,27 @@
       <value>audio_output_device</value>
     </param>
     <param>
-      <key>value</key>
-      <value>"hw:Pro,0"</value>
+      <key>label</key>
+      <value></value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>string</value>
     </param>
   </block>
   <block>
-    <key>variable</key>
+    <key>variable_config</key>
     <param>
       <key>comment</key>
       <value></value>
+    </param>
+    <param>
+      <key>config_file</key>
+      <value>.pyqtsdrgui.conf</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"null"</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -155,7 +167,54 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(352, 452)</value>
+      <value>(520, 578)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>audio_output_device_config</value>
+    </param>
+    <param>
+      <key>option</key>
+      <value>AUDIO_OUTPUT_DEVICE</value>
+    </param>
+    <param>
+      <key>section</key>
+      <value>AUDIO</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>string</value>
+    </param>
+    <param>
+      <key>writeback</key>
+      <value>audio_output_device</value>
+    </param>
+  </block>
+  <block>
+    <key>variable_qtgui_entry</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>audio_samp_rate_config</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(720, 494)</value>
+    </param>
+    <param>
+      <key>gui_hint</key>
+      <value>main_qttab_0@1:1,1,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -166,8 +225,59 @@
       <value>audio_samp_rate</value>
     </param>
     <param>
+      <key>label</key>
+      <value>AudioSample Rate</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+  </block>
+  <block>
+    <key>variable_config</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>config_file</key>
+      <value>.pyqtsdrgui.conf</value>
+    </param>
+    <param>
       <key>value</key>
       <value>48000</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(720, 578)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>audio_samp_rate_config</value>
+    </param>
+    <param>
+      <key>option</key>
+      <value>IQ SAMPLE RATE</value>
+    </param>
+    <param>
+      <key>section</key>
+      <value>IQ</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+    <param>
+      <key>writeback</key>
+      <value>audio_samp_rate</value>
     </param>
   </block>
   <block>
@@ -182,7 +292,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(496, 324)</value>
+      <value>(208, 261)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -198,10 +308,14 @@
     </param>
   </block>
   <block>
-    <key>variable</key>
+    <key>variable_qtgui_entry</key>
     <param>
       <key>comment</key>
       <value></value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>iq_input_device_config</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -209,7 +323,11 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(352, 324)</value>
+      <value>(520, 293)</value>
+    </param>
+    <param>
+      <key>gui_hint</key>
+      <value>main_qttab_0@1:0,0,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -220,15 +338,27 @@
       <value>iq_input_device</value>
     </param>
     <param>
-      <key>value</key>
-      <value>"plughw:SB,0"</value>
+      <key>label</key>
+      <value></value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>string</value>
     </param>
   </block>
   <block>
-    <key>variable</key>
+    <key>variable_config</key>
     <param>
       <key>comment</key>
       <value></value>
+    </param>
+    <param>
+      <key>config_file</key>
+      <value>.pyqtsdrgui.conf</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>"null"</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -236,7 +366,54 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(352, 388)</value>
+      <value>(520, 354)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>iq_input_device_config</value>
+    </param>
+    <param>
+      <key>option</key>
+      <value>IQ_INPUT_DEVICE</value>
+    </param>
+    <param>
+      <key>section</key>
+      <value>IQ</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>string</value>
+    </param>
+    <param>
+      <key>writeback</key>
+      <value>iq_input_device</value>
+    </param>
+  </block>
+  <block>
+    <key>variable_qtgui_entry</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>iq_samp_rate_config</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(696, 278)</value>
+    </param>
+    <param>
+      <key>gui_hint</key>
+      <value>main_qttab_0@1:0,1,1,1</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -247,8 +424,59 @@
       <value>iq_samp_rate</value>
     </param>
     <param>
+      <key>label</key>
+      <value>IQ Sample Rate</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+  </block>
+  <block>
+    <key>variable_config</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>config_file</key>
+      <value>.pyqtsdrgui.conf</value>
+    </param>
+    <param>
       <key>value</key>
       <value>48000</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(696, 354)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>iq_samp_rate_config</value>
+    </param>
+    <param>
+      <key>option</key>
+      <value>IQ SAMPLE RATE</value>
+    </param>
+    <param>
+      <key>section</key>
+      <value>IQ</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+    <param>
+      <key>writeback</key>
+      <value>iq_samp_rate</value>
     </param>
   </block>
   <block>
@@ -263,7 +491,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(496, 388)</value>
+      <value>(320, 261)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -290,34 +518,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(216, 60)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>19200</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(8, 652)</value>
+      <value>(16, 741)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -344,7 +545,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(16, 924)</value>
+      <value>(24, 1013)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -371,7 +572,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 396)</value>
+      <value>(16, 485)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -398,7 +599,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 460)</value>
+      <value>(16, 549)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -425,7 +626,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 140)</value>
+      <value>(16, 229)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -452,7 +653,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 204)</value>
+      <value>(16, 293)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -479,7 +680,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 268)</value>
+      <value>(16, 357)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -506,7 +707,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(16, 852)</value>
+      <value>(24, 941)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -533,7 +734,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 1116)</value>
+      <value>(24, 1317)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -560,7 +761,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 332)</value>
+      <value>(16, 421)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -576,221 +777,6 @@
     </param>
   </block>
   <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>variable_gui_modulation_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(992, 156)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>2,0,1,1</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_0</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Modulation</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>string</value>
-    </param>
-  </block>
-  <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>variable_volume_percent_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(992, 236)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>2,1,1,1</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_0_0</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Volume percent</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>int</value>
-    </param>
-  </block>
-  <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>variable_rf_gain_percent0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(992, 324)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>2,2,1,1</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_0_1</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>RF Percent</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>int</value>
-    </param>
-  </block>
-  <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>freq_offset_0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1000, 500)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>3,1,1,1</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_0_1_0</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Freq offset</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>int</value>
-    </param>
-  </block>
-  <block>
-    <key>variable_qtgui_label</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>variable_rf_gain_percent0</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>formatter</key>
-      <value>None</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(992, 412)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>3,0,1,1</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>variable_qtgui_label_0_1_1</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>LO Freq</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>int</value>
-    </param>
-  </block>
-  <block>
     <key>variable</key>
     <param>
       <key>comment</key>
@@ -802,7 +788,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 588)</value>
+      <value>(16, 677)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -829,7 +815,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(16, 716)</value>
+      <value>(24, 805)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -856,7 +842,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 780)</value>
+      <value>(16, 869)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -883,7 +869,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 524)</value>
+      <value>(16, 613)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -910,7 +896,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 988)</value>
+      <value>(16, 1077)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -977,11 +963,11 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(8, 108)</value>
+      <value>(16, 187)</value>
     </param>
     <param>
       <key>gui_hint</key>
-      <value>0,0,1,4</value>
+      <value>main_qttab_0@0:0,0,1,4</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1108,7 +1094,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(352, 52)</value>
+      <value>(208, 18)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1164,6 +1150,121 @@
     </param>
   </block>
   <block>
+    <key>qtgui_tab_widget</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(16, 110)</value>
+    </param>
+    <param>
+      <key>gui_hint</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>main_qttab_0</value>
+    </param>
+    <param>
+      <key>label0</key>
+      <value>Radio</value>
+    </param>
+    <param>
+      <key>label1</key>
+      <value>Setup</value>
+    </param>
+    <param>
+      <key>label10</key>
+      <value>Tab 10</value>
+    </param>
+    <param>
+      <key>label11</key>
+      <value>Tab 11</value>
+    </param>
+    <param>
+      <key>label12</key>
+      <value>Tab 12</value>
+    </param>
+    <param>
+      <key>label13</key>
+      <value>Tab 13</value>
+    </param>
+    <param>
+      <key>label14</key>
+      <value>Tab 14</value>
+    </param>
+    <param>
+      <key>label15</key>
+      <value>Tab 15</value>
+    </param>
+    <param>
+      <key>label16</key>
+      <value>Tab 16</value>
+    </param>
+    <param>
+      <key>label17</key>
+      <value>Tab 17</value>
+    </param>
+    <param>
+      <key>label18</key>
+      <value>Tab 18</value>
+    </param>
+    <param>
+      <key>label19</key>
+      <value>Tab 19</value>
+    </param>
+    <param>
+      <key>label2</key>
+      <value>Tab 2</value>
+    </param>
+    <param>
+      <key>label3</key>
+      <value>Tab 3</value>
+    </param>
+    <param>
+      <key>label4</key>
+      <value>Tab 4</value>
+    </param>
+    <param>
+      <key>label5</key>
+      <value>Tab 5</value>
+    </param>
+    <param>
+      <key>label6</key>
+      <value>Tab 6</value>
+    </param>
+    <param>
+      <key>label7</key>
+      <value>Tab 7</value>
+    </param>
+    <param>
+      <key>label8</key>
+      <value>Tab 8</value>
+    </param>
+    <param>
+      <key>label9</key>
+      <value>Tab 9</value>
+    </param>
+    <param>
+      <key>num_tabs</key>
+      <value>2</value>
+    </param>
+  </block>
+  <block>
     <key>qtgui_sink_x</key>
     <param>
       <key>bw</key>
@@ -1199,11 +1300,11 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(992, 56)</value>
+      <value>(528, 47)</value>
     </param>
     <param>
       <key>gui_hint</key>
-      <value>1,0,1,4</value>
+      <value>main_qttab_0@0:1,0,1,4</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1227,7 +1328,7 @@
     </param>
     <param>
       <key>plotconst</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>plotfreq</key>
@@ -1235,7 +1336,7 @@
     </param>
     <param>
       <key>plottime</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>plotwaterfall</key>

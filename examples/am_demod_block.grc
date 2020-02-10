@@ -46,7 +46,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>am_demod</value>
+      <value>am_demod_block</value>
     </param>
     <param>
       <key>max_nouts</key>
@@ -93,7 +93,7 @@
     </param>
     <param>
       <key>audio_stop</key>
-      <value>band_width_param+500</value>
+      <value>float(band_width_param+500)</value>
     </param>
     <param>
       <key>alias</key>

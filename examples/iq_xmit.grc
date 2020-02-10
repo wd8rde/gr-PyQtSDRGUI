@@ -729,6 +729,10 @@ def mod_index(mod_mode):
       <value>samp_rate_param</value>
     </param>
     <param>
+      <key>width_param</key>
+      <value>2700</value>
+    </param>
+    <param>
       <key>alias</key>
       <value></value>
     </param>
@@ -746,7 +750,7 @@ def mod_index(mod_mode):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(600, 165)</value>
+      <value>(600, 158)</value>
     </param>
     <param>
       <key>_rotation</key>
