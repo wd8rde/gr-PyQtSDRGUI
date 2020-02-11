@@ -36,7 +36,7 @@ if('PyQt5' in sys.modules.keys()):
     from PyQt5.QtWidgets import QWidget
     from PyQt5.QtWidgets import QApplication
 elif('PyQt4' in sys.modules.keys()):
-    print('using PyQt5')
+    print('using PyQt4')
     from PyQt4 import Qt, QtCore, QtGui, uic
     from PyQt4.Qt import QWidget
     from PyQt4.Qt import QApplication

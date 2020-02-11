@@ -5,20 +5,21 @@
   <category>[Core]/WD8RDE/QT</category>
   <import>from gnuradio import qtgui</import>
   <import>import gr_PyQtSDRGUI as PyQtSDRGUI</import>
-  <make>#set $win = 'self.%s'%($id)
-PyQtSDRGUI.PyQtSDRGUI(parent=None,
-                      itu_region=$itu_region,
-                      band_id=$band_id,
-                      bandwidth_low=$bandwidth_low,
-                      bandwidth_high=$bandwidth_high,
-                      volume=$volume,
-                      rf_gain=$rf_gain,
-                      drive=$drive,
-                      mic=$mic,
-                      vfo_freq=$vfo_freq,
-                      lo_freq=$lo_freq,
-                      sample_rate=$sample_rate,
-                      modulation_mode=$modulation_mode)
+  <make>PyQtSDRGUI.PyQtSDRGUI(parent=None,
+              itu_region=$itu_region,
+              band_id=$band_id,
+              bandwidth_low=$bandwidth_low,
+              bandwidth_high=$bandwidth_high,
+              volume=$volume,
+              rf_gain=$rf_gain,
+              drive=$drive,
+              mic=$mic,
+              vfo_freq=$vfo_freq,
+              lo_freq=$lo_freq,
+              sample_rate=$sample_rate,
+              modulation_mode=$modulation_mode)
+
+#set $win = 'self.%s'%($id)
 $(gui_hint() % $win)
 
 #if $bandchangevar() is not None

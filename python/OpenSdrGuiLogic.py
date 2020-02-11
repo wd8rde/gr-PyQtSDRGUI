@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import os, sys, inspect
 if('PyQt5' in sys.modules.keys()):
+    pyqt_version = 5
     print('using PyQt5')
     from PyQt5 import QtCore, QtGui, QtWidgets, uic
     from PyQt5.QtWidgets import QWidget
     from PyQt5.QtWidgets import QApplication
 elif('PyQt4' in sys.modules.keys()):
+    pyqt_version = 4
     print('using PyQt4')
     from PyQt4 import Qt, QtCore, QtGui, uic
     from PyQt4.Qt import QWidget
@@ -224,7 +226,10 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
         self.pbMute.toggled.connect(lambda i: self._on_mute_toggled(i))
 
     def wheelEvent(self, event):
-        delta= ((event.angleDelta()/8)/15)
+        if pyqt_version == 5:
+            delta= ((event.angleDelta()/8)/15)
+        else:
+            delta= ((event.delta()/8)/15)
         mousepos = event.pos()
         obj = self.childAt(mousepos)
         vfo_digit_map = { self.pbDg9:9, self.pbDg8:8, self.pbDg7:7, self.pbDg6:6, self.pbDg5:5, self.pbDg4:4, self.pbDg3:3, self.pbDg2:2, self.pbDg1:1, self.pbDg0:0}
@@ -281,7 +286,10 @@ class OpenSdrGuiLogic(Ui_OpenGRSDR):
         print("VFO changed to %d"%(int(freq)))
 
     def on_vfo_wheel(self,digit,event):
-        delta= int(((event.angleDelta()/8)/15).y())
+        if pyqt_version == 5:
+            delta= int(((event.angleDelta()/8)/15).y())
+        else:
+            delta = int((event.delta()/8)/15)
         digit = int(digit)
         event.accept()
         if 0 <= digit < 10:
