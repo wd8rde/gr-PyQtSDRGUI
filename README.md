@@ -1,4 +1,4 @@
-# GNU Radio Python Qt SDR GUI block
+# GNURadio Companion Python Qt SDR GUI oot block
 
 This is a **Work in Progress**. Not everything works yet ... Jan, 5, 2020
 
